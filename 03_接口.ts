@@ -160,6 +160,7 @@ interface Counter {
     (start: number): string
     interval: number
     reset(): void
+    fc: (start: number) => string
 }
 
 function getCounter(): Counter {
@@ -171,6 +172,9 @@ function getCounter(): Counter {
     counter.reset = function () {
         counter.interval = 0;
     }
+    counter.fc = (argu: number): string => {
+        return '1';
+    }
     return counter;
 }
 
@@ -178,6 +182,61 @@ let c = getCounter()
 c.reset()
 console.log(c(10));
 console.log(c.interval);
+console.log(c.fc(1));
+
+/**
+ *  抽象类
+ *  abstract: 与接口不同的是，抽象类可以包含成员的实现细节
+ */
+abstract class AnimalAbstract {
+    // 必须在派生类中实现
+    abstract makeSound(): void;
+    move(): void {
+        console.log('roaming the earch...');
+    }
+}
+
+class Snake extends AnimalAbstract {
+
+    constructor() {
+        super()
+    }
+
+    makeSound(): void {
+        throw new Error("Method not implemented.")
+    }
+
+}
+
+class Greeter {
+    // 静态变量
+    static standardGreeting = "Hello, there";
+    // 实例变量
+    greeting: string;
+    // 实例函数
+    greet() {
+        if (this.greeting) {
+            return "Hello, " + this.greeting;
+        }
+        else {
+            return Greeter.standardGreeting;
+        }
+    }
+}
+
+// 创建实例对象
+let greeter1: Greeter;
+greeter1 = new Greeter();
+console.log(greeter1.greet());
+
+// 声明类对象
+let greeterMaker: typeof Greeter = Greeter;
+greeterMaker.standardGreeting = "Hey there!";
+
+// 创建实例对象
+let greeter2: Greeter = new greeterMaker();
+console.log(greeter2.greet());
+
 
 
 

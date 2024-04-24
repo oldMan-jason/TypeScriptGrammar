@@ -61,8 +61,6 @@ let stringValues: StringArray = ['jason', 'jack']
 let userName = stringValues[0]
 console.log(userName);
 
-
-
 class Animal {
     animalName: string;
     constructor(animalName: string) {
@@ -95,20 +93,92 @@ console.log(animals[0]);
 
 // 字符串索引能很好的描述Dictionary
 interface NumberDictionary {
-    [index: string]: number;
-    lenght: number,
+    readonly [index: string]: number;
+    length: number,
     width: number,
 }
 
-// let ob = { la: 100 }
-// console.log(ob.la);
-// console.log(ob['la']);
+let ob = { la: 100 }
+console.log(ob.la);
+console.log(ob['la']);
+
 let ob1 = { 'la': 1 }
 console.log(ob1.la);
 
-
-let numbers: NumberDictionary = { lenght: 200, width: 100 };
+let numbers: NumberDictionary = { length: 200, width: 100 };
 console.log(numbers['length']);
+
+
+
+/**
+ *  类类型
+ */
+
+// 实现接口
+interface ClockInterface {
+    currentTime: Date
+    // 未实现函数
+    setTime(date: Date): void
+}
+
+class Clock implements ClockInterface {
+
+    constructor(h: number, m: number) {
+        this.currentTime = new Date()
+    }
+    setTime(date: Date) {
+        this.currentTime = date
+    }
+    currentTime: Date
+}
+
+/**
+ *  接口继承
+ *  接口可以继承过个接口
+ */
+interface ShapeFace {
+    color: string
+}
+
+interface Square extends ShapeFace {
+    sideLength: number;
+}
+
+let square = <Square>{};
+square.color = 'red'
+square.sideLength = 2;
+console.log(square);
+
+let s = { color: 'red', sideLength: 2 }
+
+/**
+ *  接口混合类型
+ *  一个对象可以同时做为函数和对象使用，并带有额外的属性
+ */
+
+interface Counter {
+    (start: number): string
+    interval: number
+    reset(): void
+}
+
+function getCounter(): Counter {
+    let counter = <Counter>function (start: number) {
+        return '作为函数使用'
+    }
+    // 对象使用
+    counter.interval = 3
+    counter.reset = function () {
+        counter.interval = 0;
+    }
+    return counter;
+}
+
+let c = getCounter()
+c.reset()
+console.log(c(10));
+console.log(c.interval);
+
 
 
 

@@ -238,7 +238,14 @@ let greeter2: Greeter = new greeterMaker();
 console.log(greeter2.greet());
 
 
+interface Props {
+    a: string;
+    b: string;
+    c: string;
+}
 
-
-
+interface Props12 extends Omit<Props, 'c' | 'a'> {
+    e: string
+}
+let p12 = <Props12>{}
 

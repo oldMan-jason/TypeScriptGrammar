@@ -255,3 +255,23 @@ interface Props2 extends Pick<Props, 'a' | 'b'> {
 }
 
 let p2 = <Props2>{}
+
+
+
+/**
+ *  统一的基础类型
+ */
+type Size = 'small' | 'middle' | 'large';
+
+type BaseProps = {
+    clsName: string
+    s: Size
+}
+
+interface inputInterface extends BaseProps {
+    value: string
+}
+
+let a = <inputInterface>{}
+a.clsName = ''
+a.s = 'large'

@@ -243,9 +243,15 @@ interface Props {
     b: string;
     c: string;
 }
-
-interface Props12 extends Omit<Props, 'c' | 'a'> {
+// Omit 过滤
+interface Props1 extends Omit<Props, 'c' | 'a'> {
     e: string
 }
-let p12 = <Props12>{}
+let p1 = <Props1>{}
 
+// Pick 选择
+interface Props2 extends Pick<Props, 'a' | 'b'> {
+    f: string
+}
+
+let p2 = <Props2>{}
